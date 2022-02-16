@@ -1,2 +1,2 @@
-docker build --tag deephaven-examples/tensorflow-sentiment-analysis .
+docker build --tag deephaven-examples/numpy-and-deephaven .
 docker compose up $1
