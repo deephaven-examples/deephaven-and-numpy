@@ -25,3 +25,7 @@ These scripts are meant to be educational in nature.  The first, `numpy_and_lear
 - `bollinger_window.py` only performs simple Bollinger band calculations.  Additionally, it does it on fake data.  Code already exists that does these operations on the `trades` table in Amanda Martin's [redpanda_dxfeed_financial_data](https://github.com/deephaven-examples/redpanda-dxfeed-financial-data) application.  Could you extend the code in the `bollinger_window.py` script to work on that as well?
 
 - `real_time_polynomial_fit.py` does real-time signal processing to remove noise from a noisy signal.  It does, however, have a problem due to the batch size and the real-time nature of the data.  How can you fix this such that the discontinuities between batches (windows) disappear?  Additionally, if you want to extend signal processing code such as this, [SciPy](https://scipy.org/) is built on top of [NumPy](https://numpy.org/) and contains a wealth of signal processing methods.  If you're interested in using SciPy, it's been added to this build by default, so you can try it for yourself!
+
+## Get started
+
+To use the code in this notebook, clone the repository to a location of your choice on your computer, and run `./start.sh` from the cloned repository.  If you have the required dependencies installed, it will download what's required and then start up.  If you're unsure if you have all of the dependencies, go to [deephaven-core](https://github.com/deephaven/deephaven-core) and follow the steps in the README to get started with Deephaven.
