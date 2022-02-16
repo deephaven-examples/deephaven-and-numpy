@@ -12,13 +12,13 @@ This repository contains code that shows how users can combine [NumPy](https://n
 
 ### Python scripts
 
-- [`numpy_and_learn.py`](./Python_Scripts/numpy_and_learn.py): Shows how the data transfer between Deephaven tables and [NumPy ndarrays](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html?highlight=ndarray#numpy.ndarray) works with deephaven.learn.
-- [`bollinger_window.py`](./Python_Scripts/bollinger_window.py): Performs a moving Bollinger mean calculation for five different "stock tickers".
-- [`real_time_polynomial_fit.py`](./Python_Scripts/real_time_polynomial_fit.py): Performs polynomial fitting in real time.
+- [`numpy_and_learn.py`](./data/notebooks/numpy_and_learn.py): Shows how the data transfer between Deephaven tables and [NumPy ndarrays](https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html?highlight=ndarray#numpy.ndarray) works with deephaven.learn.
+- [`bollinger_window.py`](./data/notebooks/bollinger_window.py): Performs a moving Bollinger mean calculation for five different "stock tickers".
+- [`real_time_polynomial_fit.py`](./data/notebooks/real_time_polynomial_fit.py): Performs polynomial fitting in real time.
 
 ## Overview
 
-This repository is meant to show how [NumPy](https://numpy.org/) and Deephaven can be used together to perform data processing in real-time.  The scripts in the `Python_Scripts` folder each perform some signal analysis.  Standard Python code would likely do these operations on static data, but with Deephaven, the extension to real-time is made easy through the use of `deephaven.learn`.
+This repository is meant to show how [NumPy](https://numpy.org/) and Deephaven can be used together to perform data processing in real-time.  The scripts in `./data/notebooks` each perform some signal analysis.  Standard Python code would likely do these operations on static data, but with Deephaven, the extension to real-time is made easy through the use of `deephaven.learn`.
 
 These scripts are meant to be educational in nature.  The first, `numpy_and_learn.py`, is used to show how data is transferred between Deephaven and Python via the `deephaven.learn` module in both static and real-time applications.  The second, `bollinger_window.py` performs real-time windowing using [NumPy](https://numpy.org/), where the calculations on the windowed data are very simple.  The last, `real_time_polynomial_fit.py`, is used to show how [NumPy](https://numpy.org/) can do data smoothing in real-time.  The latter two scripts could be improved:
 

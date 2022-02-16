@@ -2,6 +2,7 @@ from deephaven import DynamicTableWriter
 from deephaven.learn import gather
 import deephaven.Types as dht
 from deephaven import learn
+from deephaven import Plot
 
 import threading, time
 import numpy as np
