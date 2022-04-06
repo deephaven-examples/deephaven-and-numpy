@@ -1,20 +1,18 @@
 from deephaven import DynamicTableWriter
+from deephaven import dtypes as dht
 from deephaven.learn import gather
-import deephaven.Types as dht
+from deephaven.plot import Figure
 from deephaven import learn
-from deephaven import Plot
 
-import threading, time
-import numpy as np
+import numpy as np, threading, time
 
 sleep_time = 1
 
 table_writer = DynamicTableWriter(
-    ["X", "Y"],
-    [dht.double, dht.double]
+    {"X": dht.double, "Y": dht.double}
 )
 
-data_table_live = table_writer.getTable()
+data_table_live = table_writer.table
 
 def write_noisy_signal():
     x0 = 0
@@ -25,7 +23,7 @@ def write_noisy_signal():
         x = np.arange(x0, x1, step_size)
         y = 3.5 * np.sin(x) + 1.5 * np.sin(x) + 0.75 * np.sin(3.5 * x) + np.random.normal(0, 1, 100)
         for i in range(len(y)):
-            table_writer.logRow(x[i], y[i])
+            table_writer.write_row(x[i], y[i])
         x0 += 1
         x1 += 1
         end = time.time()
@@ -35,10 +33,12 @@ def write_noisy_signal():
 thread = threading.Thread(target = write_noisy_signal)
 thread.start()
 
-data_plot_live = Plot.plot("Raw Signal", data_table_live, "X", "Y").show()
+figure = Figure()
+data_fig_live = figure.plot_xy(series_name = "Raw Signal", t = data_table_live, x = "X", y = "Y")
+data_plot_live = data_fig_live.show()
 
 def table_to_numpy_double(rows, columns):
-    return gather.table_to_numpy_2d(rows, columns, dtype = np.double)
+    return gather.table_to_numpy_2d(rows, columns, np_type = np.double)
 
 def numpy_to_table(data, index):
     return data[index]
@@ -59,4 +59,7 @@ data_table_live_polyfitted = learn.learn(
     batch_size = 100
 )
 
-data_plot_live_polyfitted = Plot.plot("Raw Signal", data_table_live, "X", "Y").plot("Polyfitted Signal", data_table_live_polyfitted, "X", "Fitted_Y").show()
+data_fig_live_polyfitted = figure.\
+    plot_xy(series_name = "Raw Signal", t = data_table_live, x = "X", y = "Y").\
+    plot_xy(series_name = "Polyfitted Signal", t = data_table_live_polyfitted, x = "X", y = "Fitted_Y")
+data_plot_live_polyfitted = data_fig_live_polyfitted.show()

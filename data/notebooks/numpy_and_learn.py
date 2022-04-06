@@ -1,22 +1,22 @@
 # Deephaven imports
-from deephaven.TableTools import emptyTable
 from deephaven.learn import gather
+from deephaven import empty_table
 from deephaven import learn
 
 # Python imports
 import numpy as np
 
 # First table: 1 row, 1 column, int type
-t1 = emptyTable(1).update("X = i")
+t1 = empty_table(1).update(formulas = ["X = i"])
 
 # Define data exchange - Deephaven to Python
 # Integer data types
 def table_to_numpy_int(rows, cols):
-    return gather.table_to_numpy_2d(rows, cols, dtype = np.intc)
+    return gather.table_to_numpy_2d(rows, cols, np_type = np.intc)
 
 # Float data types
 def table_to_numpy_float(rows, cols):
-    return gather.table_to_numpy_2d(rows, cols, dtype = np.single)
+    return gather.table_to_numpy_2d(rows, cols, np_type = np.single)
 
 # First model function: Print the single input object
 def print_array(data):
@@ -26,16 +26,16 @@ def print_array(data):
 print("\tLEARN CALL 1: Single input of 1 row and 1 column")
 
 # The first learn call
-learn.learn(                                     # No return value
-    table = t1,                                  # Our input table t1
-    model_func = print_array,                    # The function we will use to "process" data
-    inputs = [learn.Input("X", table_to_numpy_int)], # Inputs - must be an iterable of learn.Inputs
-    outputs = None,                              # Outputs - None (print_array returns nothing)
-    batch_size = 1                               # Batch size - the max # of rows to process at once
+learn.learn(                                            # No return value
+    table = t1,                                         # Our input table t1
+    model_func = print_array,                           # The function we will use to "process" data
+    inputs = [learn.Input("X", table_to_numpy_int)],    # Inputs - must be an iterable of learn.Inputs
+    outputs = None,                                     # Outputs - None (print_array returns nothing)
+    batch_size = 1                                      # Batch size - the max # of rows to process at once
 )
 
 # Second table: 2 rows, 2 columns, float type
-t2 = emptyTable(2).update("X = (float)i", "Y = (float)(2 * i)")
+t2 = empty_table(2).update(formulas = ["X = (float)i", "Y = (float)(2 * i)"])
 
 print("\tLEARN CALL 2: Single input of two rows and two columns")
 
